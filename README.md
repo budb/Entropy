@@ -20,10 +20,16 @@ A configfile is required to initialize the program. P the file config.yml in the
 The api key can be acquired from http://openweathermap.org/appid
 
 Example
-```YAML
-weather:
-    api_key: 123456789abcdefghijklmnopqrstuvw
+```YAML  
+general:
+  background: './wallpaper.jpg'
 widgets:
-    clock: DigClock
-    weather: Weather
+    clock:
+      class: DigClock
+      transparency: 'True'
+    weather:
+      class: Weather
+      api_key: 123456789abcdefghijklmnopqrstuvw
+      place_id: 2911298
+      transparency: 'True'
 ```    

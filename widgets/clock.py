@@ -6,7 +6,7 @@ import time, logging
 class DigClock(QLCDNumber):
     global oldEvent
 
-    def __init__(self, parent=None):
+    def __init__(self, args, parent=None):
         super(DigClock, self).__init__(parent)
 
         localtime = time.strftime("%H:%M")
@@ -18,7 +18,8 @@ class DigClock(QLCDNumber):
         #transparency
         self.setAutoFillBackground(True)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        if args['transparency'] == 'True':
+            self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
     def mousePressEvent(self, event):
         super(DigClock, self).mousePressEvent(event)
