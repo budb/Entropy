@@ -1,5 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLCDNumber
-from PyQt5.QtCore import QSize
+from PyQt5.QtWidgets import QLCDNumber
 import time, logging
 
 class DigClock(QLCDNumber):

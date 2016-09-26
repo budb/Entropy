@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import logging
 import sys
-from base64 import _85encode
 
 import ui
 from PyQt5 import QtGui
@@ -22,8 +21,6 @@ class Entropy(QMainWindow):
 
         self.setWindowTitle('ENTROPY')
         self.resize(self.maximumHeight(), self.maximumWidth())
-
-        logging.info('Entropy.InitUI self max w ' + str(self.maximumHeight()) + " max h " + str(self.maximumWidth()))
 
         _mdi = ui.FloatArea(self)
         self.setCentralWidget(_mdi)

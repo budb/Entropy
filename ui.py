@@ -1,9 +1,8 @@
 import logging, yaml, importlib
 
+from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-
-from widgets import clock
 
 
 class FloatArea(QMdiArea):
@@ -24,9 +23,6 @@ class FloatArea(QMdiArea):
 
         self._blub = self.addSubWindow(label, Qt.FramelessWindowHint| Qt.WindowDoesNotAcceptFocus)
         self._blub.setFocusPolicy(Qt.NoFocus)
-
-        logging.info('UI self w ' + str(self.maximumHeight()) + " h " + str(self.maximumWidth()))
-
 
         self.initWidgets()
 
@@ -49,8 +45,7 @@ class FloatArea(QMdiArea):
 
         #Add widget
         logging.info("widgets " + str(self._widgets[index]))
-        self.addSubWindow(self._widgets[index])
-
+        _subwindow = self.addSubWindow(self._widgets[index])
         pass
 
     def initWidgets(self):

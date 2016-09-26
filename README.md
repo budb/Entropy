@@ -1,20 +1,29 @@
 # Entropy
 
-###Preparations
-###kudos to http://bendo.github.io/pi/
-Scroll pHAT
+A modular information display project
 
-sudo pip install cffi smbus-cffi scrollphat requests psutil i2c
+Installation
+------------
+Tested under ArchARM
 
-in # /boot/config.txt add: 
-dtparam=i2c_arm=on
+```
+yaourt -Sy python-yaml python-pyqt5
+pip install pyowm
+git clone https://github.com/budb/Entropy.git
+cd ./Entropy/
+python main.py
+```
 
-in # /etc/modules-load.d/raspberrypi.conf add: 
-i2c-dev
-i2c-bcm2708
+Usage
+-----
+A configfile is required to initialize the program. P the file config.yml in the program folder.
+The api key can be acquired from http://openweathermap.org/appid
 
-reboot
-
-check if it works 
-sudo i2cdetect -y 1
-
+Example
+```YAML
+weather:
+    api_key: 123456789abcdefghijklmnopqrstuvw
+widgets:
+    clock: DigClock
+    weather: Weather
+```    
