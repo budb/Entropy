@@ -20,8 +20,12 @@ class Weather(QLabel):
         self.setText("Weather: " + w.get_detailed_status())
         self.setMinimumHeight(200)
         self.setMinimumWidth(400)
+
+        #transparency
+        self.setAutoFillBackground(True)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.setStyleSheet("background-color:transparent;")
+
 
     def mousePressEvent(self, event):
         super(Weather, self).mousePressEvent(event)

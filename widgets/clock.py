@@ -15,6 +15,11 @@ class DigClock(QLCDNumber):
         self.setMinimumHeight(200)
         self.setMinimumWidth(400)
 
+        #transparency
+        self.setAutoFillBackground(True)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
     def mousePressEvent(self, event):
         super(DigClock, self).mousePressEvent(event)
         logging.info('mousePress')

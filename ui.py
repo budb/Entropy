@@ -47,7 +47,10 @@ class FloatArea(QMdiArea):
         #Add widget to main window
         logging.info("widgets " + str(self._widgets[index]))
         _subwindow = self.addSubWindow(self._widgets[index])
+
+        #Set subare containing widget transparent
         _subwindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        _subwindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         pass
 
     def initWidgets(self):
