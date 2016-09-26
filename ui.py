@@ -3,6 +3,7 @@ import logging, yaml, importlib
 from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QPoint
 
 
 class FloatArea(QMdiArea):
@@ -43,9 +44,10 @@ class FloatArea(QMdiArea):
         #Create and store instance
         self._widgets.append(getattr(self._modules[index], self.cfg['widgets'][key])())
 
-        #Add widget
+        #Add widget to main window
         logging.info("widgets " + str(self._widgets[index]))
         _subwindow = self.addSubWindow(self._widgets[index])
+        _subwindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         pass
 
     def initWidgets(self):
