@@ -17,7 +17,7 @@ python main.py
 Usage
 -----
 A configfile is required to initialize the program. P the file config.yml in the program folder.
-The api key can be acquired from http://openweathermap.org/appid
+The api key can be acquired from http://openweathermap.org/appid. The place id can also be found at http://openweathermap.org/.
 
 Example
 ```YAML  

@@ -30,6 +30,10 @@ class Weather(QLabel):
         if args['transparency'] == 'True':
             self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
+    def configure(self):
+        # position
+        print(str(self.parentWidget()))
+
 
     def mousePressEvent(self, event):
         super(Weather, self).mousePressEvent(event)
