@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QLCDNumber, QPushButton, QLabel, QVBoxLayout, QFrame, QHBoxLayout, QLayout
 from PyQt5.QtGui import QPixmap, QPainter, QColor
-from PyQt5.QtGui import QPalette
+from PyQt5.Qt import QApplication
 from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5 import QtGui, QtCore
 from urllib import request
 
-import pyowm, yaml, logging, threading, urllib
+import pyowm, logging, threading, urllib, datetime, pytz
 
 
 class Weather(QWidget):
@@ -16,9 +16,14 @@ class Weather(QWidget):
     global temperature
     global recept_time
     global weather_icon
+    global args
 
 
-    def updateWeatherTask(self, api_key, place_id):
+    #def updateWeatherTask(self, _api_key, _place_id, args):
+    def updateWeatherTask(self):
+        api_key = str(self.args['api_key'])
+        place_id = self.args['place_id']
+
         owm = pyowm.OWM(api_key)
         observation = owm.weather_at_id(place_id)
         logging.info('updateWeatherTask ' + str(observation))
@@ -29,22 +34,27 @@ class Weather(QWidget):
         temp = w.get_temperature(unit='celsius')
         self.temperature.setText("max "+ str(temp['temp_max']) + " curr. " + str(temp['temp']) + " min " + str(temp['temp_min']))
 
-        self.recept_time.setText(observation.get_reception_time(timeformat='iso'))
+        #Handle time conversion
+        dtime_utc = (observation.get_reception_time(timeformat='date')).replace(tzinfo=pytz.timezone('UTC'))
+        dtime_local = dtime_utc.astimezone(pytz.timezone('Europe/Berlin'))
+        self.recept_time.setText(dtime_local.strftime("%Y-%m-%d %H:%M:%S %Z%z"))
 
+        #Get weather icon
         url = 'http://openweathermap.org/img/w/'+w.get_weather_icon_name()+'.png'
         data = urllib.request.urlopen(url).read()
         pixmap = QPixmap()
         pixmap.loadFromData(data)
         self.weather_icon.setPixmap(pixmap)
 
-        #Update each hour
-        t = threading.Timer(3600, self.updateWeatherTask, (api_key, place_id))
+        #Update each 10 min
+        t = threading.Timer(600, self.updateWeatherTask)
         t.daemon = True
         t.start()
 
 
-    def __init__(self, args, parent=None):
+    def __init__(self, w_args, parent=None):
         super(Weather, self).__init__(parent)
+        self.args = w_args
 
         self.status_text = QLabel("Updating")
         self.temperature = QLabel("....")
@@ -91,22 +101,30 @@ class Weather(QWidget):
         self.setMinimumWidth(400)
 
         #Start weatherupdatetask as thread
-        t = threading.Timer(1.0, self.updateWeatherTask, (str(args['api_key']),args['place_id']))
+        t = threading.Timer(1.0, self.updateWeatherTask)
         t.daemon = True
         t.start()
 
         #transparency
         self.setAutoFillBackground(True)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        if args['transparency'] == 'True':
-            self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        if 'transparency' in self.args:
+            if w_args['transparency'] == 'True':
+                self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
     def configure(self):
-        pass
+        # position
+        if 'position' in self.args:
+            if self.args['position'] == 'center':
+                desktopRect = QApplication.desktop().availableGeometry(self)
+                self.parentWidget().move((desktopRect.width() * 0.5) - (self.width() * 0.25),
+                                         (desktopRect.height() * 0.5) - (self.height() * 0.25))
+            elif (self.args['position'][0] >= 0) & (self.args['position'][1] >= 0):
+                self.parentWidget().move(self.args['position'][0], self.args['position'][1])
+
 
     def mousePressEvent(self, event):
         super(Weather, self).mousePressEvent(event)
-        print("Press")
         if event.button() == QtCore.Qt.LeftButton:
             self.leftClick = True
             self.oldEvent=QPoint(event.globalPos())

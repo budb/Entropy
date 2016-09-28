@@ -38,18 +38,19 @@ class DigClock(QLCDNumber):
         #transparency
         self.setAutoFillBackground(True)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        if args['transparency'] == 'True':
-            self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        if 'transparency' in self.args:
+            if args['transparency'] == 'True':
+                self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
 
     def configure(self):
         # position
         if 'position' in self.args:
-            desktopRect = QApplication.desktop().availableGeometry(self)
-            center = desktopRect.center();
-            self.parentWidget().move((desktopRect.width()*0.5) - (self.width() * 0.25), (desktopRect.height()*0.5) - (self.height() * 0.25))
-            #self.parentWidget().move(center.x()-(self.width()*0.4), center.y()-(self.height()*0.4))
-
+            if self.args['position'] == 'center':
+                desktopRect = QApplication.desktop().availableGeometry(self)
+                self.parentWidget().move((desktopRect.width()*0.5) - (self.width() * 0.25), (desktopRect.height()*0.5) - (self.height() * 0.25))
+            elif (self.args['position'][0] >= 0) & (self.args['position'][1] >= 0):
+                self.parentWidget().move(self.args['position'][0], self.args['position'][1])
 
     def mousePressEvent(self, event):
         super(DigClock, self).mousePressEvent(event)

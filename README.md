@@ -8,7 +8,7 @@ Tested under ArchARM
 
 ```
 yaourt -Sy python-yaml python-pyqt5
-pip install pyowm
+pip install pyowm pytz
 git clone https://github.com/budb/Entropy.git
 cd ./Entropy/
 python main.py
@@ -33,3 +33,26 @@ widgets:
       place_id: 2911298
       transparency: 'True'
 ```    
+
+Documentation
+-------------
+
+(*)optional
+[Default]
+
+####Clock
+
+background: \<path to wallpaper>
+
+####Clock
+
+class: DigClock 
+_transparency: 'True'_*[False]
+_position: center_*[0,0]
+
+####Weather
+class: Weather
+api_key: 123456789abcdefghijklmnopqrstuvw
+place_id: 2911298
+_transparency: 'True'_*[False]
+_position: [400,400]_*[0,0]
