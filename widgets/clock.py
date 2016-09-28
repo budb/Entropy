@@ -18,7 +18,7 @@ class DigClock(QLCDNumber):
             self.parentWidget().hide()
             self.parentWidget().show()
 
-        t = threading.Timer(5.0, self.updateTime)
+        t = threading.Timer(5, self.updateTime)
         t.daemon = True
         t.start()
 
@@ -27,7 +27,10 @@ class DigClock(QLCDNumber):
         super(DigClock, self).__init__()
         self.args=args
 
-        threading.Timer(1, self.updateTime()).start()
+        t=threading.Timer(0.5, self.updateTime)
+        t.daemon = True
+        t.start()
+
         self.setMinimumHeight(200)
         self.setMinimumWidth(400)
 
@@ -50,7 +53,6 @@ class DigClock(QLCDNumber):
 
     def mousePressEvent(self, event):
         super(DigClock, self).mousePressEvent(event)
-        logging.info('mousePress')
         if event.button() == QtCore.Qt.LeftButton:
             self.leftClick = True
             self.oldEvent=QPoint(event.globalPos())
@@ -65,7 +67,6 @@ class DigClock(QLCDNumber):
 
     def mouseReleaseEvent(self, event):
         super(DigClock, self).mouseReleaseEvent(event)
-        logging.info('mouseRelease')
         self.leftClick = False
 
 
