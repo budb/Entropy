@@ -119,8 +119,18 @@ class Weather(QWidget):
                             "border-color: rgb(60, 60, 60);"
                             "}")
 
+        #text color
+        ct = ''
         if 'color' in self.args:
-            self.setStyleSheet("color: " + w_args['color'] + ";")
+            ct = "color: " + w_args['color'] + ";"
+
+        #text-size
+        ts = ''
+        if 'font_size' in self.args:
+            ts = "font-size: " + w_args['font_size'] + ";"
+
+        self.setStyleSheet(ct+ts)
+
 
     def configure(self):
         # position

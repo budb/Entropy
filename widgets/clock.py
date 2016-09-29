@@ -57,16 +57,6 @@ class DigClock(QLCDNumber):
                         mc +
                         "}")
 
-        #self.setStyleSheet("QWidget"
-        #                "{border-style: outset;"+
-        #                bg +
-        #                mc +
-        #                "border-width: 1px;"
-        #                "border-color: rgb(60, 60, 60);"
-        #                "}")
-
-
-
     def configure(self):
         # position
         if 'position' in self.args:

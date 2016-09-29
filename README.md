@@ -37,6 +37,7 @@ widgets:
       color: '#222222'
       background: '#CFD8DC'
       position: [400,400]
+      font_size: '22px'
 ```    
 
 Documentation
@@ -55,12 +56,13 @@ _frameless: 'True' [False]_
 class: DigClock 
 _position: center_[0,0]
 _background: 'transparent' or '#000000'_
-_color: '#000000' <= hex color_
+_color: '#000000'_
 
 ####Weather
 class: Weather
 api_key: 123456789abcdefghijklmnopqrstuvw
 place_id: 2911298
-_background: 'transparent' or '#000000' <= hex color_
+_background: 'transparent' or '#000000'_
 _position: [400,400]_
-_color: '#000000' <= hex color_
+_color: '#000000'_
+_font_size: '22px'_
