@@ -23,36 +23,44 @@ Example
 ```YAML  
 general:
   background: './wallpaper.jpg'
+  frameless: 'True'
 widgets:
     clock:
       class: DigClock
-      transparency: 'True'
+      background: '#CFD8DC'
+      position: center
+      color: '#222222'
     weather:
       class: Weather
       api_key: 123456789abcdefghijklmnopqrstuvw
       place_id: 2911298
-      transparency: 'True'
+      color: '#222222'
+      background: '#CFD8DC'
+      position: [400,400]
 ```    
 
 Documentation
 -------------
 
-(*)optional
+_optional_
 [Default]
 
-####Clock
+####General
 
-background: \<path to wallpaper>
+background: \<path to wallpaper> or '#000000'
+_frameless: 'True' [False]_
 
 ####Clock
 
 class: DigClock 
-_transparency: 'True'_*[False]
-_position: center_*[0,0]
+_position: center_[0,0]
+_background: 'transparent' or '#000000'_
+_color: '#000000' <= hex color_
 
 ####Weather
 class: Weather
 api_key: 123456789abcdefghijklmnopqrstuvw
 place_id: 2911298
-_transparency: 'True'_*[False]
-_position: [400,400]_*[0,0]
+_background: 'transparent' or '#000000' <= hex color_
+_position: [400,400]_
+_color: '#000000' <= hex color_

@@ -35,12 +35,36 @@ class DigClock(QLCDNumber):
         self.setMinimumWidth(400)
 
         #CONFIGURATION ON INITIALIZATION
-        #transparency
+        #background
         self.setAutoFillBackground(True)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        if 'transparency' in self.args:
-            if args['transparency'] == 'True':
+
+        bg = ""
+        mc = ""
+        if 'background' in self.args:
+            if args['background'] == 'transparent':
                 self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+            if self.args['background'][0] == '#':
+                bg = "background-color:" + self.args['background'] + ";"
+
+        if 'color' in self.args:
+            mc = "color: " + self.args['color'] + ";"
+            print(mc)
+
+        self.setStyleSheet("QWidget"
+                        "{"+
+                        bg +
+                        mc +
+                        "}")
+
+        #self.setStyleSheet("QWidget"
+        #                "{border-style: outset;"+
+        #                bg +
+        #                mc +
+        #                "border-width: 1px;"
+        #                "border-color: rgb(60, 60, 60);"
+        #                "}")
+
 
 
     def configure(self):

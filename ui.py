@@ -24,9 +24,19 @@ class FloatArea(QMdiArea):
 
     def setupBackground(self):
         label = QLabel("")
-        label.setStyleSheet("QLabel"
-                            "{ border-image: url("+self.cfg['general']['background']+"); "
-                            "border:1px solid rgb(255, 170, 255); }")
+        if 'background' in self.cfg['general']:
+            if self.cfg['general']['background'][0] == '#':
+                label.setStyleSheet("QLabel"
+                                    "{ background-color: " +
+                                    self.cfg['general']['background'] + "; "
+                                    "border:1px solid rgb(0,0,0); }")
+            else:
+                print(self.cfg['general']['background'][0])
+                label.setStyleSheet("QLabel"
+                                    "{ border-image: url("+
+                                    self.cfg['general']['background']+"); "
+                                    "border:1px solid rgb(0,0,0); }")
+
         self._blub = self.addSubWindow(label, Qt.FramelessWindowHint | Qt.WindowDoesNotAcceptFocus)
         self._blub.setFocusPolicy(Qt.NoFocus)
 

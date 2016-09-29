@@ -91,11 +91,7 @@ class Weather(QWidget):
         self.setLayout(mainL)
 
         mainW.setObjectName("Container")
-        mainW.setStyleSheet("QWidget#Container"
-                   "{border-style: outset;"
-                    "border-width: 1px;"
-                    "border-color: rgb(60, 60, 60);"
-                    "}")
+
 
         self.setMinimumHeight(200)
         self.setMinimumWidth(400)
@@ -105,12 +101,26 @@ class Weather(QWidget):
         t.daemon = True
         t.start()
 
-        #transparency
+        #background
         self.setAutoFillBackground(True)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        if 'transparency' in self.args:
-            if w_args['transparency'] == 'True':
+        bg = ""
+        if 'background' in self.args:
+            if w_args['background'] == 'transparent':
                 self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+            if w_args['background'][0] == '#':
+                bg = "background-color:"+self.args['background']+";"
+                pass
+
+        mainW.setStyleSheet("QWidget#Container"
+                            "{border-style: outset;" +
+                            bg +
+                            "border-width: 1px;"
+                            "border-color: rgb(60, 60, 60);"
+                            "}")
+
+        if 'color' in self.args:
+            self.setStyleSheet("color: " + w_args['color'] + ";")
 
     def configure(self):
         # position

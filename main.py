@@ -2,10 +2,14 @@
 import sys, logging, ui, yaml
 
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtWidgets import QPushButton, QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication
 
 class Entropy(QMainWindow):
+    """
+    Base class
 
+    Initializes the main window. Program logic is handled in the ui class.
+    """
     global cfg
 
     def __init__(self):
