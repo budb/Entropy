@@ -31,7 +31,6 @@ class FloatArea(QMdiArea):
                                     self.cfg['general']['background'] + "; "
                                     "border:1px solid rgb(0,0,0); }")
             else:
-                print(self.cfg['general']['background'][0])
                 label.setStyleSheet("QLabel"
                                     "{ border-image: url("+
                                     self.cfg['general']['background']+"); "

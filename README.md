@@ -38,6 +38,14 @@ widgets:
       background: '#CFD8DC'
       position: [400,400]
       font_size: '22px'
+    sign:
+      class: Sign
+      color: '#CFD8DC'
+      background: 'transparent'
+      position: [0,100]
+      text: ['FREE','ALREADY DISTURBED','DO NOT DISTURB']
+      font_size: '64px'
+      button_size: '24px'
 ```    
 
 Documentation
@@ -66,3 +74,13 @@ _background: 'transparent' or '#000000'_
 _position: [400,400]_
 _color: '#000000'_
 _font_size: '22px'_
+
+####Sign
+class: Sign
+_background: 'transparent' or '#000000'_
+_position: [400,400]_
+_color: '#000000'_
+_font_size: '22px'_
+_text: ['']_
+_font_size: '64px'_
+_button_size: '24px_'

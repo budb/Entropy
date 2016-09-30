@@ -49,7 +49,6 @@ class DigClock(QLCDNumber):
 
         if 'color' in self.args:
             mc = "color: " + self.args['color'] + ";"
-            print(mc)
 
         self.setStyleSheet("QWidget"
                         "{"+
