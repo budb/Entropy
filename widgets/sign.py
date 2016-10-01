@@ -5,9 +5,10 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5 import QtGui, QtCore
 from urllib import request
 
-import pyowm, logging, threading, urllib, pytz
+import pyowm, logging, threading, urllib, pytz, widgets.widget
 
-class Sign(QWidget):
+
+class Sign(widgets.widget.Widget):
     global oldEvent
     global text
     global mode
@@ -84,6 +85,8 @@ class Sign(QWidget):
                             "border-width: 1px;"
                             "border-color: rgb(60, 60, 60);"
                             "}")
+
+
         # text color
         ct = ''
         if 'color' in self.args:
@@ -100,30 +103,4 @@ class Sign(QWidget):
         if self.mode_nr >= len(self.args['text']):
             self.mode_nr = 0
 
-    def configure(self):
-        # position
-        if 'position' in self.args:
-            if self.args['position'] == 'center':
-                desktopRect = QApplication.desktop().availableGeometry(self)
-                self.parentWidget().move((desktopRect.width() * 0.5) - (self.width() * 0.25),
-                                         (desktopRect.height() * 0.5) - (self.height() * 0.25))
-            elif (self.args['position'][0] >= 0) & (self.args['position'][1] >= 0):
-                self.parentWidget().move(self.args['position'][0], self.args['position'][1])
 
-    def mousePressEvent(self, event):
-        super(Sign, self).mousePressEvent(event)
-        if event.button() == QtCore.Qt.LeftButton:
-            self.leftClick = True
-            self.oldEvent = QPoint(event.globalPos())
-
-    def mouseMoveEvent(self, event):
-        super(Sign, self).mouseMoveEvent(event)
-        newEvent = QPoint(event.globalPos())
-        delta = (newEvent - self.oldEvent)
-        new_Pos = (self.parentWidget().pos() + delta)
-        self.parentWidget().move(new_Pos)
-        self.oldEvent = QPoint(event.globalPos())
-
-    def mouseReleaseEvent(self, event):
-        super(Sign, self).mouseReleaseEvent(event)
-        self.leftClick = False

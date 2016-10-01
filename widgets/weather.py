@@ -1,14 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QLCDNumber, QPushButton, QLabel, QVBoxLayout, QFrame, QHBoxLayout, QLayout
 from PyQt5.QtGui import QPixmap, QPainter, QColor
-from PyQt5.Qt import QApplication
-from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5 import QtGui, QtCore
 from urllib import request
 
-import pyowm, logging, threading, urllib, datetime, pytz
+import pyowm, logging, threading, urllib, datetime, pytz, widgets.widget
 
 
-class Weather(QWidget):
+class Weather(widgets.widget.Widget):
 
     global oldEvent
     global status
@@ -18,8 +16,6 @@ class Weather(QWidget):
     global weather_icon
     global args
 
-
-    #def updateWeatherTask(self, _api_key, _place_id, args):
     def updateWeatherTask(self):
         api_key = str(self.args['api_key'])
         place_id = self.args['place_id']
@@ -50,7 +46,7 @@ class Weather(QWidget):
         t = threading.Timer(600, self.updateWeatherTask)
         t.daemon = True
         t.start()
-
+        return 1
 
     def __init__(self, w_args, parent=None):
         super(Weather, self).__init__(parent)
@@ -84,6 +80,7 @@ class Weather(QWidget):
 
         mainW = QWidget()
         mainW.setLayout(mainLayout)
+
         mainL = QHBoxLayout()
         mainL.setContentsMargins(0,0,0,0)
         mainL.addWidget(mainW)
@@ -132,32 +129,3 @@ class Weather(QWidget):
         self.setStyleSheet(ct+ts)
 
 
-    def configure(self):
-        # position
-        if 'position' in self.args:
-            if self.args['position'] == 'center':
-                desktopRect = QApplication.desktop().availableGeometry(self)
-                self.parentWidget().move((desktopRect.width() * 0.5) - (self.width() * 0.25),
-                                         (desktopRect.height() * 0.5) - (self.height() * 0.25))
-            elif (self.args['position'][0] >= 0) & (self.args['position'][1] >= 0):
-                self.parentWidget().move(self.args['position'][0], self.args['position'][1])
-
-
-    def mousePressEvent(self, event):
-        super(Weather, self).mousePressEvent(event)
-        if event.button() == QtCore.Qt.LeftButton:
-            self.leftClick = True
-            self.oldEvent=QPoint(event.globalPos())
-
-
-    def mouseMoveEvent(self, event):
-        super(Weather, self).mouseMoveEvent(event)
-        newEvent = QPoint(event.globalPos())
-        delta = (newEvent - self.oldEvent)
-        new_Pos = (self.parentWidget().pos() + delta)
-        self.parentWidget().move(new_Pos)
-        self.oldEvent = QPoint(event.globalPos())
-
-    def mouseReleaseEvent(self, event):
-        super(Weather, self).mouseReleaseEvent(event)
-        self.leftClick = False
