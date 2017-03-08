@@ -9,7 +9,6 @@ import pyowm, logging, threading, urllib, pytz, widgets.widget
 
 
 class Sign(widgets.widget.Widget):
-    global oldEvent
     global text
     global mode
     global args

@@ -7,8 +7,6 @@ import pyowm, logging, threading, urllib, datetime, pytz, widgets.widget
 
 
 class Weather(widgets.widget.Widget):
-
-    global oldEvent
     global status
     global status_text
     global temperature

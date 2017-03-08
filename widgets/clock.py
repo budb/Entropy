@@ -1,22 +1,18 @@
 from PyQt5 import QtCore
-from PyQt5.Qt import QApplication
+from PyQt5.Qt import QApplication, QStackedLayout
 from PyQt5.QtWidgets import QLCDNumber
 from PyQt5.QtCore import QPoint
-import time, logging, threading
+import time, logging, threading, widgets.widget
 
-class DigClock(QLCDNumber):
-    global oldEvent
+class DigClock(widgets.widget.Widget):
     global args
+    global mainW
 
     def updateTime(self):
         localtime = time.strftime("%H:%M")
-        self.display(localtime)
+        self.mainW.display(localtime)
 
-        #Calling update does not delete old active segments
-        #calling parent widget to avoid graphic errors
-        if self.parentWidget() is not None:
-            self.parentWidget().hide()
-            self.parentWidget().show()
+        self.update()
 
         t = threading.Timer(5, self.updateTime)
         t.daemon = True
@@ -27,10 +23,6 @@ class DigClock(QLCDNumber):
         super(DigClock, self).__init__()
         self.args=args
 
-        t=threading.Timer(0.5, self.updateTime)
-        t.daemon = True
-        t.start()
-
         self.setMinimumHeight(200)
         self.setMinimumWidth(400)
 
@@ -38,6 +30,18 @@ class DigClock(QLCDNumber):
         #background
         self.setAutoFillBackground(True)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
+        #main widget
+        self.mainW= QLCDNumber()
+
+        #main layout
+        mainL = QStackedLayout()
+        mainL.addWidget(self.mainW)
+        self.setLayout(mainL)
+
+        t = threading.Timer(0.5, self.updateTime)
+        t.daemon = True
+        t.start()
 
         bg = ""
         mc = ""
@@ -65,23 +69,6 @@ class DigClock(QLCDNumber):
             elif (self.args['position'][0] >= 0) & (self.args['position'][1] >= 0):
                 self.parentWidget().move(self.args['position'][0], self.args['position'][1])
 
-    def mousePressEvent(self, event):
-        super(DigClock, self).mousePressEvent(event)
-        if event.button() == QtCore.Qt.LeftButton:
-            self.leftClick = True
-            self.oldEvent=QPoint(event.globalPos())
-
-    def mouseMoveEvent(self, event):
-        newEvent = QPoint(event.globalPos())
-        delta = (newEvent-self.oldEvent)
-        new_Pos= (self.parentWidget().pos() + delta)
-
-        self.parentWidget().move(new_Pos)
-        self.oldEvent = QPoint(event.globalPos())
-
-    def mouseReleaseEvent(self, event):
-        super(DigClock, self).mouseReleaseEvent(event)
-        self.leftClick = False
 
 
 
