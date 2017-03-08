@@ -46,6 +46,13 @@ widgets:
       text: ['FREE','ALREADY DISTURBED','DO NOT DISTURB']
       font_size: '64px'
       button_size: '24px'
+    quotes:
+      class: Quotes
+      color: '#CFD8DC'
+      background: 'transparent'
+      position: [1200,100]
+      font_size: '24px'
+      mode: 'False' # can be True or False for True or Fake Authors
 ```    
 
 Documentation
