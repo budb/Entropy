@@ -1,11 +1,8 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout,QHBoxLayout
-from PyQt5.QtGui import QPixmap, QPainter, QColor
+from PyQt5 import QtCore
 from PyQt5.Qt import QApplication
-from PyQt5.QtCore import QPoint, Qt
-from PyQt5 import QtGui, QtCore
-from urllib import request
+from PyQt5.QtCore import QPoint
+from PyQt5.QtWidgets import QWidget
 
-import pyowm, logging, threading, urllib, pytz
 
 class Widget(QWidget):
     global oldEvent

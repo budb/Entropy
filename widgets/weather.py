@@ -1,9 +1,14 @@
-from PyQt5.QtWidgets import QWidget, QLCDNumber, QPushButton, QLabel, QVBoxLayout, QFrame, QHBoxLayout, QLayout
-from PyQt5.QtGui import QPixmap, QPainter, QColor
-from PyQt5 import QtGui, QtCore
 from urllib import request
 
-import pyowm, logging, threading, urllib, datetime, pytz, widgets.widget
+import logging
+import pyowm
+import pytz
+import threading
+import urllib
+import widgets.widget
+from PyQt5 import QtCore
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 
 
 class Weather(widgets.widget.Widget):

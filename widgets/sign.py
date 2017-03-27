@@ -1,11 +1,9 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout,QHBoxLayout
-from PyQt5.QtGui import QPixmap, QPainter, QColor
-from PyQt5.Qt import QApplication
-from PyQt5.QtCore import QPoint, Qt
-from PyQt5 import QtGui, QtCore
-from urllib import request
+import threading
+import widgets.widget
 
-import pyowm, logging, threading, urllib, pytz, widgets.widget
+from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout,QHBoxLayout
 
 
 class Sign(widgets.widget.Widget):

@@ -1,25 +1,31 @@
-from PyQt5.QtWidgets import QWidget, QLCDNumber, QPushButton, QLabel, QVBoxLayout, QFrame, QHBoxLayout, QLayout
-from PyQt5.QtGui import QPixmap, QPainter, QColor
-from PyQt5 import QtGui, QtCore
-from urllib import request
+import random
+import threading
 
-import pyowm, logging, threading, urllib, datetime, pytz, widgets.widget, random
+import yaml
+
+import widgets.widget
+
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
+
+quotes_list = []
+fakeAuthorList = []
 
 class Quotes(widgets.widget.Widget):
     global quote
     global author
     global args
-    global quoteList
-    global realAuthors
+
+    global data
 
     def updateQuoteTask(self):
-        choice=random.randint(0, len(self.quoteList))
-        self.quote.setText(self.quoteList[choice])
+        choice=random.randint(0, len(quotes_list))
+        self.quote.setText(quotes_list[choice][1])
         # real or fake mode
         if self.realAuthors == 'True':
-            self.author.setText(self.authorList[choice])
+            self.author.setText(quotes_list[choice][0])
         else:
-            self.author.setText(self.fakeAuthorList[random.randint(0, len(self.quoteList))])
+            self.author.setText(fakeAuthorList[random.randint(0, len(quotes_list))])
 
         #Update each 12 h
         t = threading.Timer(43200, self.updateQuoteTask)
@@ -30,58 +36,19 @@ class Quotes(widgets.widget.Widget):
     def __init__(self, w_args, parent=None):
         super(Quotes, self).__init__(parent)
         self.args = w_args
-        self.quoteList=["Genie ist Fleiß", 
-                        "Wir können den Wind nicht ändern, aber die Segel anders setzen.",
-                        "Jeder, der sich die Fähigkeit erhält, Schönes zu erkennen, wird nie alt werden.",
-                        "Der erste Schritt zur Philosophie ist der Unglaube.",
-                        "Zwei Wahrheiten können einander nie widersprechen.",
-                        "Der größte Lump im ganzen Land, das ist und bleibt der Denunziant."
-                        "Der Worte sind genug gewechselt, Laßt mich auch endlich Taten sehn!",
-                        "Die Botschaft hör´ ich wohl, allein mir fehlt der Glaube",
-                        "Man muß die Dinge so einfach wie möglich machen. Aber nicht einfacher."
-                        "Jedes Volk hat die Regierung, die es verdient."    #10       
-                        "Man erkennt den Charakter eines Menschen an den Späßen, über die er lacht.",
-                        "Eine falsche Ansicht zu widerrufen erfordert mehr Charakter, als sie zu verteidigen.",    
-                        "Der Mensch ist zur Freiheit verurteilt.",
-                        "Clothes make the man. Naked people have little or no influence on society.",
-                        "Shortcuts make long delays",
-                        "Impossible is a word that humans use far too often.",     
-                        ]
 
-        self.authorList=["Johann Wolfgang von Goethe", 
-                        "Aristoteles",
-                        "Franz Kafka",
-                        "Denis Diderot",
-                        "Galileo Galilei",
-                        "August Heinrich Hoffmann von Fallersleben",
-                        "Johann Wolfgang von Goethe",
-                        "Faust - Johann Wolfgang von Goethe",
-                        "Albert Einstein",
-                        "Joseph Marie de Maistre",                          #10
-                        "Alfred Biolek",
-                        "Arthur Schopenhauer",
-                        "J.P. Sartre",
-                        "Mark Twain",
-                        "J.R.R. Tolkien",
-                        "Seven of Nine",
-                        ]
+        with open("static.yml", 'r') as ymlfile:
+            self.data = yaml.load(ymlfile)
 
-        self.fakeAuthorList=["Lukas Podolski", 
-                        "Scooter",
-                        "Dieter Bohlen",
-                        "Heidi Klum",
-                        "Thomas Gottschalk",
-                        "Deichkind",
-                        "Sheldon Cooper",
-                        "Batman",
-                        "Paul Jahnke",
-                        "Tony Stark",                          #10
-                        "Olivia Jones",
-                        "Christiano Ronaldo",
-                        "Gina Lisa",
-                        "Pietro Lombardi",
-                        "Micaela Schäfer",
-                        ]
+        # Load quotes and authors
+        for key in self.data['quotes']['list']:
+            #print(key, self.data['quotes']['list'][key])
+            quotes_list.append([key, self.data['quotes']['list'][key]])
+
+        for key in self.data['quotes']['fake_authors']:
+            #print(key, self.data['quotes']['list'][key])
+            fakeAuthorList.append(key)
+
 
         self.quote = QLabel("Updating")
         self.author = QLabel("....")

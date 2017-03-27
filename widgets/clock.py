@@ -1,8 +1,11 @@
+import threading
+import time
+import widgets.widget
+
 from PyQt5 import QtCore
 from PyQt5.Qt import QApplication, QStackedLayout
 from PyQt5.QtWidgets import QLCDNumber
-from PyQt5.QtCore import QPoint
-import time, logging, threading, widgets.widget
+
 
 class DigClock(widgets.widget.Widget):
     global args

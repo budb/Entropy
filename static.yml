@@ -1,0 +1,39 @@
+radio:
+    nrjberlin: 'http://cdn.nrjaudio.fm/adwz1/de/33001/mp3_128.mp3'
+    nrjhamburg: 'http://cdn.nrjaudio.fm/adwz1/de/33009/mp3_128.mp3'
+    radiofritz: 'https://rbb-mp3-fritz-m.akacast.akamaistream.net/7/799/292093/v1/gnl.akacast.akamaistream.net/rbb_mp3_fritz_m.mp3'
+    radiohamburg: 'http://stream.radiohamburg.de/rhh-live/mp3-128/linkradiohamburgde'
+quotes:
+    list:
+        Johann Wolfgang von Goethe: 'Genie ist Fleiß'
+        Aristoteles: 'Wir können den Wind nicht ändern, aber die Segel anders setzen.'
+        Franz Kafka: 'Jeder, der sich die Fähigkeit erhält, Schönes zu erkennen, wird nie alt werden.'
+        Denis Diderot: 'Der erste Schritt zur Philosophie ist der Unglaube.'
+        Galileo Galilei: 'Zwei Wahrheiten können einander nie widersprechen.'
+        August Heinrich Hoffmann von Fallersleben: 'Der größte Lump im ganzen Land, das ist und bleibt der Denunziant.'
+        Johann Wolfgang von Goethe: 'Der Worte sind genug gewechselt, Laßt mich auch endlich Taten sehn!'
+        Faust - Johann Wolfgang von Goethe: 'Die Botschaft hör´ ich wohl, allein mir fehlt der Glaube'
+        Albert Einstein: 'Man muß die Dinge so einfach wie möglich machen. Aber nicht einfacher.'
+        Joseph Marie de Maistre: 'Jedes Volk hat die Regierung, die es verdient.'
+        Alfred Biolek: 'Man erkennt den Charakter eines Menschen an den Späßen, über die er lacht.'
+        Arthur Schopenhauer: 'Eine falsche Ansicht zu widerrufen erfordert mehr Charakter, als sie zu verteidigen.'
+        J.P. Sartre: 'Der Mensch ist zur Freiheit verurteilt.'
+        Mark Twain: 'Clothes make the man. Naked people have little or no influence on society.'
+        J.R.R. Tolkien: 'Shortcuts make long delays'
+        Seven of Nine: 'Impossible is a word that humans use far too often.'
+    fake_authors:
+      - Lukas Podolski
+      - Scooter
+      - Dieter Bohlen
+      - Heidi Klum
+      - Thomas Gottschalk
+      - Deichkind
+      - Sheldon Cooper
+      - Batman
+      - Paul Jahnke
+      - Tony Stark
+      - Olivia Jones
+      - Christiano Ronaldo
+      - Gina Lisa
+      - Pietro Lombardi
+      - Micaela Schäfer
